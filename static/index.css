@@ -1,0 +1,69 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f4f4f9;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+#titleInput {
+    padding: 10px;
+    width: 300px;
+    font-size: 16px;
+}
+
+#recommendBtn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#recommendBtn:hover {
+    background-color: #45a049;
+}
+
+#recommendations {
+    margin-top: 20px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #333;
+}
+
+.book {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.book h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.book p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.book p strong {
+    color: #333;
+}
+
+#closestMatches, #booksYouMayLike {
+    margin-top: 30px;
+}

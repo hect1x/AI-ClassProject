@@ -1,0 +1,4 @@
+venv
+final_books_df.csv
+raw_books.csv
+similarity_books_scores.csv
