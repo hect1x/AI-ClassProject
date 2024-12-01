@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommendation</title>
+    <link rel="stylesheet" href="../static/index.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <h1>Book Recommendation System</h1>
+    <p style="text-align: center;">Enter a book title to find similar books:</p>
+
+    <div style="text-align: center;">
+        <input type="text" id="titleInput" placeholder="Enter book title" autocomplete="off">
+        <button id="recommendBtn">Get Recommendations</button>
+    </div>
+
+    <div id="closestMatches">
+        <div class="section-title">Closest Matches:</div>
+        <div id="closestMatchesList"></div>
+    </div>
+
+    <div id="booksYouMayLike">
+        <div class="section-title">Books You May Like:</div>
+        <div id="booksYouMayLikeList"></div>
+    </div>
+
+    <script>
+        // let typingTimer;
+        // const typingDelay = 500; 
+        // $('#titleInput').keyup(function() {
+        //     clearTimeout(typingTimer);  
+        //     const title = $('#titleInput').val().trim();
+
+        //     if (title !== "") {
+        //         typingTimer = setTimeout(function() {
+        //             sendRecommendationRequest(title);  
+        //         }, typingDelay);
+        //     } else {
+        //         $('#closestMatchesList').empty();
+        //         $('#booksYouMayLikeList').empty();
+        //     }
+        // });
+
+        $('#recommendBtn').click(function() {
+            const title = $('#titleInput').val().trim();
+
+            if (title !== "") {
+                sendRecommendationRequest(title);
+            } else {
+                alert("Please enter a book title.");
+            }
+        });
+
+        function sendRecommendationRequest(title) {
+            $.ajax({
+                url: 'http://127.0.0.1:5000/recommend',
+                type: 'POST',
+                data: { title: title },
+                success: function(response) {
+                    $('#closestMatchesList').empty();
+                    $('#booksYouMayLikeList').empty();
+
+                    if (response.error) {
+                        $('#closestMatchesList').html(`<p>${response.error}</p>`);
+                    } else {
+                        // reset
+                        $('#titleInput').val('');
+
+                        // closest
+                        response.slice(0, 5).forEach(function(book) {
+                            $('#closestMatchesList').append(`
+                                <div class="book">
+                                    <h3>${book.title}</h3>
+                                    <p><strong>Author:</strong> ${book.author}</p>
+                                    <p><strong>Description:</strong> ${book.description}</p>
+                                    <p><strong>ISBN-10:</strong> ${book.isbn10}</p>
+                                    <p><strong>ISBN-13:</strong> ${book.isbn13}</p>
+                                    <p><strong>Publish Date:</strong> ${book.publish_date}</p>
+                                    <p><strong>Edition:</strong> ${book.edition}</p>
+                                    <p><strong>Price:</strong> ${book.price}</p>
+                                </div>
+                            `);
+                        });
+
+                        //may like (MAIN ML here)
+                        response.slice(5, 10).forEach(function(book) {
+                            $('#booksYouMayLikeList').append(`
+                                <div class="book">
+                                    <h3>${book.title}</h3>
+                                    <p><strong>Author:</strong> ${book.author}</p>
+                                    <p><strong>Description:</strong> ${book.description}</p>
+                                    <p><strong>ISBN-10:</strong> ${book.isbn10}</p>
+                                    <p><strong>ISBN-13:</strong> ${book.isbn13}</p>
+                                    <p><strong>Publish Date:</strong> ${book.publish_date}</p>
+                                    <p><strong>Edition:</strong> ${book.edition}</p>
+                                    <p><strong>Price:</strong> ${book.price}</p>
+                                </div>
+                            `);
+                        });
+                    }
+                },
+                error: function() {
+                    alert("Nothing was found");
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

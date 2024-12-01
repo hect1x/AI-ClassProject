@@ -1,0 +1,125 @@
+/* Revised CSS */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #f5f7fa, #c3cfe2);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 36px;
+    margin-top: 20px;
+    color: #2c3e50;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+p {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #555;
+    text-align: center;
+}
+
+#titleInput {
+    width: 50%;
+    max-width: 400px;
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#titleInput:focus {
+    border-color: #3498db;
+    box-shadow: 0 6px 12px rgba(52, 152, 219, 0.3);
+    outline: none;
+}
+
+#recommendBtn {
+    padding: 12px 25px;
+    font-size: 16px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#recommendBtn:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 30px 0 10px;
+    color: #34495e;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.book {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 15px auto;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 10px;
+    background: linear-gradient(to right, #ffffff, #f7f9fc);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.book:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.book h3 {
+    margin: 0;
+    font-size: 22px;
+    color: #2c3e50;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.book p {
+    margin: 8px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.book p strong {
+    color: #34495e;
+}
+
+#closestMatches, #booksYouMayLike {
+    width: 80%;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    #titleInput {
+        width: 80%;
+    }
+
+    .book {
+        width: 95%;
+    }
+}
