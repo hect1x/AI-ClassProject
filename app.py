@@ -21,7 +21,7 @@ def recommend():
 
     all_titles = final_df['title'].str.lower().tolist()
     closest_matches = difflib.get_close_matches(title, all_titles, n=5, cutoff=0.5) 
-    print(f"Closest matches: {closest_matches}")
+    # print(f"Closest matches: {closest_matches}")
     
     if not closest_matches:
         return jsonify({'error': 'No matching titles found'}), 400
@@ -45,7 +45,7 @@ def recommend():
     top_5_similar_indexes = [pair[0] for pair in top_5_similar]
 
     top_5_similar_titles = final_df.iloc[top_5_similar_indexes]['title'].tolist()
-    print(f"Top 5 Similar titles: {top_5_similar_titles}")
+    # print(f"Top 5 Similar titles: {top_5_similar_titles}")
     recommended_books = []
 
     def handle_missing(value):
@@ -92,7 +92,7 @@ def recommend():
                 'price': handle_missing(book_info['price']),
             })
 
-    print(f"Recommended Books Data: {recommended_books}")
+    # print(f"Recommended Books Data: {recommended_books}")
     return jsonify(recommended_books)
 
 
