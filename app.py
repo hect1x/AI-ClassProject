@@ -27,23 +27,12 @@ def recommend():
 
     if not query:
         return jsonify({"error": "No title provided"})
-
-    # Vectorize the input query
     query_vec = vectorizer.transform([query])
-
-    # Predict the closest cluster for the query
     cluster_label = model.predict(query_vec)[0]
-
-    # Filter books in the predicted cluster
     cluster_books = using_df[using_df['cluster'] == cluster_label]
-    
-    # Calculate similarity (cosine similarity) with books in the cluster
     cluster_vectors = vectorizer.transform(cluster_books['text'])
     similarities = (cluster_vectors * query_vec.T).toarray().flatten()
-    
-    # Sort books by similarity score
-    top_indices = similarities.argsort()[::-1][:10]  # Get top 10 recommendations
-    
+    top_indices = similarities.argsort()[::-1][:5]  
     recommendations = []
     for idx in top_indices:
         book = cluster_books.iloc[idx]
