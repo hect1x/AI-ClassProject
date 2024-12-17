@@ -16,4 +16,3 @@ model.fit(x)
 
 joblib.dump(model, 'model.pkl')
 joblib.dump(vectorizer, 'vectorizer.pkl')
-

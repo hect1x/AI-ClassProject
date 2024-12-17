@@ -7,12 +7,12 @@ from sklearn.neighbors import NearestNeighbors
 
 
 
-model = joblib.load('model.pkl') 
+model = joblib.load('kmeans_model.pkl') 
 vectorizer = joblib.load('vectorizer.pkl') 
 using_df = pd.read_csv('usebooks.csv')
 
 using_df['text'] = using_df['title'].fillna('') + ' ' + using_df['description'].fillna('') + ' ' + using_df['author'].fillna('') + ' ' + using_df['categorias'].fillna('')
-
+using_df['cluster'] = model.predict(vectorizer.transform(using_df['text']))
 app = Flask(__name__)
 CORS(app)
 
@@ -28,24 +28,35 @@ def recommend():
     if not query:
         return jsonify({"error": "No title provided"})
 
+    # Vectorize the input query
     query_vec = vectorizer.transform([query])
 
-    distances, indices = model.kneighbors(query_vec)
-    recommendations = []
+    # Predict the closest cluster for the query
+    cluster_label = model.predict(query_vec)[0]
+
+    # Filter books in the predicted cluster
+    cluster_books = using_df[using_df['cluster'] == cluster_label]
     
-    for idx, dist in zip(indices[0], distances[0]):
-        book = using_df.iloc[idx]
+    # Calculate similarity (cosine similarity) with books in the cluster
+    cluster_vectors = vectorizer.transform(cluster_books['text'])
+    similarities = (cluster_vectors * query_vec.T).toarray().flatten()
+    
+    # Sort books by similarity score
+    top_indices = similarities.argsort()[::-1][:10]  # Get top 10 recommendations
+    
+    recommendations = []
+    for idx in top_indices:
+        book = cluster_books.iloc[idx]
         recommendations.append({
             "title": book['title'],
             "author": book['author'],
             "description": book['description'],
-            "categories": book['categorias'],  
-            "similarity": 1 - dist  
+            "categories": book['categorias'],
+            "similarity": similarities[idx]
         })
 
     print(recommendations)
     return jsonify(recommendations)
-
 
 
 
