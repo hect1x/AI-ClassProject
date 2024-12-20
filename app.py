@@ -38,9 +38,9 @@ def recommend():
         book = cluster_books.iloc[idx]
         recommendations.append({
             "title": book['title'],
-            "author": book['author'],
-            "description": book['description'],
-            "categories": book['categorias'],
+            "author": book['author'] if pd.notna(book['author']) else "Unknown",
+            "description": book['description'] if pd.notna(book['description']) else "No description available",
+            "categories": book['categorias'] if pd.notna(book['categorias']) else "Unknown",
             "similarity": similarities[idx]
         })
 

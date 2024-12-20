@@ -104,7 +104,7 @@
                 success: function(response) {
                     $('#closestMatchesList').empty();
                     $('#booksYouMayLikeList').empty();
-
+                    // console.log(response);
                     if (response.error) {
                         $('#closestMatchesList').html(`<p>${response.error}</p>`);
                     } else {
@@ -129,7 +129,9 @@
                         });
                     }
                 },
-                error: function() {
+                error: function(jqXHR, textStatus, errorThrown) {
+                    // console.log("Error Details:", textStatus, errorThrown);
+                    // console.log("Response Text:", jqXHR.responseText); 
                     alert("An error occurred while fetching the recommendations.");
                 }
             });
