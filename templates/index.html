@@ -12,10 +12,15 @@
     <header> 
         <nav>
             <div class="navbar-container">
-                <img src="../Image/facebook.webp" alt="Facebook Logo" style="width: 20px; height: 20px; margin-right: 1px; border-radius: 10px;">
-                <a href="#" class="navbar-brand text-hover">CS BookMate</a>
+                <section style="flex-direction: row; display: flex;">
+                <img src="../Image/facebook.webp" alt="Facebook Logo" style="width: 20px; height: 20px; border-radius: 10px;">
+                <div class="vertical-line" style="border-left: 2px solid #3498DB; height: 20px;margin-left: 5px; margin-right: 5px;"></div>
+                <a href="#" class="navbar-brand text-hover">CS BookMate</a>   
+                
+                </section>
+                
                 <ul id="nabartext"class="navbar-links">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="../templates/home.html">Home</a></li>
                     <li><a href="#">Search</a></li>
                     <li><a href="../templates/about.html">About Us</a></li>
                 </ul>
@@ -111,7 +116,7 @@
                         response.slice(0, 5).forEach(book => {
                             $('#closestMatchesList').append(
                                 `<div class="book">
-                                    <h3>${book.title}</h3>
+                                    <h3 class="title">${book.title}</h3>
                                     <p><strong>Author:</strong> ${book.author}</p>
                                     <p><strong>Description:</strong> ${book.description}</p>
                                 </div>`
@@ -121,7 +126,7 @@
                         response.slice(5, 10).forEach(book => {
                             $('#booksYouMayLikeList').append(
                                 `<div class="book">
-                                    <h3>${book.title}</h3>
+                                    <h3 class="title">${book.title}</h3>
                                     <p><strong>Author:</strong> ${book.author}</p>
                                     <p><strong>Description:</strong> ${book.description}</p>
                                 </div>`
@@ -135,6 +140,18 @@
                     alert("An error occurred while fetching the recommendations.");
                 }
             });
+
+            $(document).ready(function() {
+            $('.result-section').hide();
+            })
+
+            function toggleResultVisibility() {
+                if ($('#closestMatchesList').children().length === 0 && $('#booksYouMayLikeList').children().length === 0) {
+                    $('.result-section').hide();
+                } else {
+                    $('.result-section').show();
+                }   
+            }
         }
 
         
